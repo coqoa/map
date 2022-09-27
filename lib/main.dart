@@ -1,40 +1,48 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:map/controller/map_controller.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Naver Map',
-      home: NaverMapTest(),
+      home: YummyMaps(),
     );
   }
 }
 
-class NaverMapTest extends StatefulWidget {
+class YummyMaps extends StatefulWidget {
+  const YummyMaps({Key? key}) : super(key: key);
+
   @override
-  _NaverMapTestState createState() => _NaverMapTestState();
+  YummyMapsState createState() => YummyMapsState();
 }
 
-class _NaverMapTestState extends State<NaverMapTest> {
+class YummyMapsState extends State<YummyMaps> {
   Completer<NaverMapController> _controller = Completer();
-  MapType _mapType = MapType.Basic;
+  MapController mapController = MapController();
+
+  @override
+  void initState() {
+    super.initState();
+    mapController.getStore('서울 강남구 밤고개로5길 13');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('YummyMaps')),
-      body: Container(
-        child: NaverMap(
-          onMapCreated: onMapCreated,
-          mapType: _mapType,
-        ),
+      body: NaverMap(
+        onMapCreated: onMapCreated,
       ),
     );
   }
