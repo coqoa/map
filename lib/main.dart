@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:map/controller/map_controller.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // 
+
   runApp(const MyApp());
 }
 
@@ -34,6 +38,7 @@ class YummyMapsState extends State<YummyMaps> {
   @override
   void initState() {
     super.initState();
+    mapController.setDB();
     mapController.getStore('서울 강남구 밤고개로5길 13');
   }
 

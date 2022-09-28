@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "779586212778",
+    "project_id": "yummymaps-7eb83",
+    "storage_bucket": "yummymaps-7eb83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779586212778:android:b0e781385591fe8275d1d3",
+        "android_client_info": {
+          "package_name": "com.sideprject.map"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779586212778-r067dhvdslssr8ihec820qobdcgmupb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDscnG2NyU1KaiW5HiInrgU2s65iAtrsBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779586212778-r067dhvdslssr8ihec820qobdcgmupb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
