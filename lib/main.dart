@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:map/controller/map_controller.dart';
+import 'package:map/screens/data_add.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:get/get.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Naver Map',
       home: YummyMaps(),
@@ -38,7 +40,6 @@ class YummyMapsState extends State<YummyMaps> {
   @override
   void initState() {
     super.initState();
-    mapController.setDB();
     mapController.getStore('서울 강남구 밤고개로5길 13');
   }
 
@@ -48,6 +49,12 @@ class YummyMapsState extends State<YummyMaps> {
       appBar: AppBar(title: const Text('YummyMaps')),
       body: NaverMap(
         onMapCreated: onMapCreated,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Text('Go!'),
+        onPressed: (){
+          Get.to(transition: Transition.rightToLeft, DataAdd());
+        }
       ),
     );
   }

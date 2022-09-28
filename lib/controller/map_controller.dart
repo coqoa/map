@@ -6,33 +6,44 @@ import 'package:map/repository/repository.dart';
 
 class MapController extends GetxController{
   final Repository _repo = Repository();
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  late final users = firestore.collection('collection').doc('doc');
+  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late final creator = FirebaseFirestore.instance.collection('YummyMaps').doc('Creator');
 
   Future<void> getStore(String address) async {
     
     
-    users.get().then((value) => 
-      print(value.data())
+    creator.collection('sung').doc('1').get().then((value) => {
+        print('=================='),
+        print(value),
+        print('==================')
+      }
     );
 
     await _repo.getStore(address).then((result) {
-      log('------------------------------------------');
-      print('result === $result');
-      log('------------------------------------------');
-      users.get().then(((value) => 
-        print('value.data === ${value.data()}')
-      ));
-      log('------------------------------------------');
+      // print('result === $result');
+      // users.get().then(((value) => 
+      //   print('value.data === ${value.data()}')
+      // ));
     });
    
   }
   void setDB(){
-    users.set({
-      'filed4' : '4',
-      'field5' : '5',
-      'field6' : '6',
-      'field7' : '7'
+    creator.set({
+      'filed4' : '8',
+      'field5' : '9',
+      'field6' : '1',
+      'field7' : '2'
+    });
+  }
+    void readDB(){
+    creator.get().then((value){
+      print(value.data());
+    });
+  }
+
+  void updateDB(String key, String value){
+    creator.update({
+      key:value
     });
   }
 }
