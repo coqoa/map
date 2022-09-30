@@ -12,15 +12,16 @@ class DataAdd extends StatefulWidget {
 }
 
 class _DataAddState extends State<DataAdd> {
-  late final creator = FirebaseFirestore.instance.collection('YummyMaps').doc('Creator');
+  // late final creator = FirebaseFirestore.instance.collection('YummyMaps');
 
+  String creator = '';
   String name = '';
   String address = '';
   String number = '';
   String youtubeUrl = '';
 
-  void setDB(String name, String address, String number, String youtubeUrl){
-    creator.set({
+  void setDB(String creator, String name, String address, String number, String youtubeUrl){
+    FirebaseFirestore.instance.collection(creator).doc(creator).set({
       'name' : name,
       'address' : address,
       'number' : number,
@@ -45,7 +46,15 @@ class _DataAddState extends State<DataAdd> {
               TextFormField(
                 autofocus: true,
                 autocorrect: false,
-                decoration: const InputDecoration(hintText: 'name'),
+                decoration: const InputDecoration(hintText: 'creator'),
+                onChanged: (e){
+                  setState(() {
+                    creator = e;
+                  });
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(hintText: 'store name'),
                 onChanged: (e){
                   setState(() {
                     name = e;
@@ -77,25 +86,28 @@ class _DataAddState extends State<DataAdd> {
                 },
                 // 마지막 항목이어야 함
                 onEditingComplete: (){
-                  if(name.isNotEmpty 
+                  if(creator.isNotEmpty
+                  &&name.isNotEmpty 
                     && address.isNotEmpty 
                     && number.isNotEmpty 
                     && youtubeUrl.isNotEmpty
                   ) {
                     log('name = $name / address = $address / number = $number / youtubeUrl = $youtubeUrl');
-                    setDB(name, address, number, youtubeUrl);
+                    setDB(creator, name, address, number, youtubeUrl);
                   }
+                  name ='';
                 },
               ),
-              if(name.isEmpty 
+              if(creator.isEmpty
+                  ||name.isEmpty 
                   || address.isEmpty 
                   || number.isEmpty 
                   || youtubeUrl.isEmpty
-              )
+              )Text('칸을 모두 채우시오', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              
               const SizedBox(height: 10),
-              const Text('칸을 모두 채우시오', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-              const SizedBox(height: 10),
-              Text('${name.isEmpty?'❗':'✅'} name = $name'),
+              Text('${creator.isEmpty?'❗':'✅'} creator = $creator'),
+              Text('${name.isEmpty?'❗':'✅'} store name = $name'),
               Text('${address.isEmpty?'❗':'✅'} address = $address'),
               Text('${number.isEmpty?'❗':'✅'} number = $number'),
               Text('${youtubeUrl.isEmpty?'❗':'✅'} Youtube URL = $youtubeUrl'),
